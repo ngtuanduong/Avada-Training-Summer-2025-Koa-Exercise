@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product List</title>
+  <link rel="stylesheet" href="/products.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Product List</h1>
+    <div class="grid">
+      <% products.forEach(function(product) { %>
+      <a href="/products/<%= product.id %>">
+        <div class="card">
+          <img src="<%= product.image %>" alt="<%= product.name %>">
+          <h3><%= product.name %></h3>
+          <div class="price">$<%= product.price %></div>
+          <div class="desc"><%= product.description %></div>
+          <div class="meta">Type: <%= product.product %></div>
+          <div class="meta">Color: <%= product.color %></div>
+        </div>
+      </a>
+      <% }); %>
+    </div>
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+      <a href="/products?page=<%= currentPage - 1 %>">&laquo; Prev</a>
+      <% } %>
+      <% let start = Math.max(1, currentPage - 5); %>
+      <% let end = Math.min(totalPages, currentPage + 5); %>
+      <% if (start > 1) { %>
+      <a href="/products?page=1">1</a>
+      <% if (start > 2) { %>
+      <span>...</span>
+      <% } %>
+      <% } %>
+      <% for (let i = start; i <= end; i++) { %>
+      <% if (i === currentPage) { %>
+      <span class="active"><%= i %></span>
+      <% } else { %>
+      <a href="/products?page=<%= i %>"><%= i %></a>
+      <% } %>
+      <% } %>
+      <% if (end < totalPages) { %>
+      <% if (end < totalPages - 1) { %>
+      <span>...</span>
+      <% } %>
+      <a href="/products?page=<%= totalPages %>"><%= totalPages %></a>
+      <% } %>
+      <% if (currentPage < totalPages) { %>
+      <a href="/products?page=<%= currentPage + 1 %>">Next &raquo;</a>
+      <% } %>
+      <form action="/products" method="get">
+        <input type="number" name="page" min="1" max="<%= totalPages %>" value="<%= currentPage %>">
+        <button type="submit">Go</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

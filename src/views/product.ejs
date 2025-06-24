@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail</title>
+  <link rel="stylesheet" href="/product.css">
+</head>
+
+<body>
+  <a class="back-link" href="/products">Back to Product List</a>
+  <div class="product-detail-container">
+    <div class="product-image-section">
+      <img src="<%= product.image %>" alt="<%= product.name %>">
+    </div>
+    <div class="product-info-section">
+      <h1><%= product.name %> <span class="product-id-badge">#<%= product.id %></span></h1>
+      <div class="price">$<%= product.price %></div>
+      <div class="desc"><%= product.description %></div>
+      <div class="meta">Type: <%= product.product %></div>
+      <div class="meta">Color: <span class="color-swatch" style="background:<%= product.color %>;"></span> <%= product.color %></div>
+      <div class="created-at-badge">Created At: <%= product.createdAt %></div>
+    </div>
+  </div>
+</body>
+
+</html>
