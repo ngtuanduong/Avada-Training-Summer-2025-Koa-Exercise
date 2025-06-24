@@ -10006,7 +10006,7 @@
     "description": "A test product",
     "product": "Test Type",
     "color": "blue",
-    "image": "https://example.com/image.jpg",
+    "image": "https://picsum.photos/seed/e5ow62Do4/400/400?grayscale&blur=3",
     "createdAt": "2025-06-24T12:58:40.074Z"
   }
 ]
