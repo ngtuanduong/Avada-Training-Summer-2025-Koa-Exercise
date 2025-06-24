@@ -15,7 +15,10 @@ app.use(router.routes()).use(router.allowedMethods());
 
 // HTML page to render all products
 app.use(async (ctx, next) => {
-    if (ctx.path === "/products" && ctx.method === "GET") {
+    if (
+        ctx.path === "/" ||
+        (ctx.path === "/products" && ctx.method === "GET")
+    ) {
         const products = JSON.parse(
             fs.readFileSync(
                 path.join(__dirname, "database", "products.json"),
