@@ -11,6 +11,23 @@
 <body>
   <div class="container">
     <h1>Product List</h1>
+    <a href="/products/add" class="add-product-btn">+ Add Product</a>
+    <form class="sort-form" method="get" action="/products">
+      <label for="orderBy">Order by:</label>
+      <select name="orderBy" id="orderBy">
+        <option value="createdAt" <%= (typeof orderBy !== 'undefined' && orderBy === 'createdAt') ? 'selected' : '' %>>Created At</option>
+        <option value="price" <%= (typeof orderBy !== 'undefined' && orderBy === 'price') ? 'selected' : '' %>>Price</option>
+        <option value="name" <%= (typeof orderBy !== 'undefined' && orderBy === 'name') ? 'selected' : '' %>>Name</option>
+        <option value="product" <%= (typeof orderBy !== 'undefined' && orderBy === 'product') ? 'selected' : '' %>>Product Type</option>
+        <option value="color" <%= (typeof orderBy !== 'undefined' && orderBy === 'color') ? 'selected' : '' %>>Color</option>
+      </select>
+      <label for="sort">Sort:</label>
+      <select name="sort" id="sort">
+        <option value="asc" <%= (typeof sort !== 'undefined' && sort === 'asc') ? 'selected' : '' %>>Ascending</option>
+        <option value="desc" <%= (typeof sort !== 'undefined' && sort === 'desc') ? 'selected' : '' %>>Descending</option>
+      </select>
+      <button type="submit">Apply</button>
+    </form>
     <div class="grid">
       <% products.forEach(function(product) { %>
       <a href="/products/<%= product.id %>">

@@ -3,25 +3,49 @@ const path = require("path");
 
 const PRODUCTS_PATH = path.join(__dirname, "../../database/products.json");
 
+// Read all products from the JSON file
 function readProducts() {
     return JSON.parse(fs.readFileSync(PRODUCTS_PATH, "utf-8"));
 }
+// Write the products array to the JSON file
 function writeProducts(products) {
     fs.writeFileSync(PRODUCTS_PATH, JSON.stringify(products, null, 2), "utf-8");
 }
 
 // GET /api/products
+// Return a list of products, with optional sorting, ordering, and limiting
 function getAllProducts(ctx) {
     let products = readProducts();
-    const { limit, sort } = ctx.query;
+    const { limit, sort, orderBy } = ctx.query;
+    const sortField = orderBy || "createdAt";
     if (sort === "asc") {
-        products = products.sort(
-            (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-        );
+        products = products.sort((a, b) => {
+            if (sortField === "price") {
+                return Number(a[sortField]) - Number(b[sortField]);
+            } else if (
+                sortField === "name" ||
+                sortField === "product" ||
+                sortField === "color"
+            ) {
+                return String(a[sortField]).localeCompare(String(b[sortField]));
+            } else {
+                return new Date(a[sortField]) - new Date(b[sortField]);
+            }
+        });
     } else if (sort === "desc") {
-        products = products.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
+        products = products.sort((a, b) => {
+            if (sortField === "price") {
+                return Number(b[sortField]) - Number(a[sortField]);
+            } else if (
+                sortField === "name" ||
+                sortField === "product" ||
+                sortField === "color"
+            ) {
+                return String(b[sortField]).localeCompare(String(a[sortField]));
+            } else {
+                return new Date(b[sortField]) - new Date(a[sortField]);
+            }
+        });
     }
     if (limit) {
         products = products.slice(0, Number(limit));
@@ -30,6 +54,7 @@ function getAllProducts(ctx) {
 }
 
 // POST /api/products
+// Create a new product and add it to the list
 function createProduct(ctx) {
     const products = readProducts();
     const newProduct = {
@@ -44,6 +69,7 @@ function createProduct(ctx) {
 }
 
 // PUT /api/product/:id
+// Update an existing product by ID
 function updateProduct(ctx) {
     const products = readProducts();
     const id = Number(ctx.params.id);
@@ -59,6 +85,7 @@ function updateProduct(ctx) {
 }
 
 // DELETE /api/product/:id
+// Delete a product by ID
 function deleteProduct(ctx) {
     let products = readProducts();
     const id = Number(ctx.params.id);
@@ -75,6 +102,7 @@ function deleteProduct(ctx) {
 }
 
 // GET /api/product/:id
+// Return a single product by ID, with optional field selection
 function getProductById(ctx) {
     const products = readProducts();
     const id = Number(ctx.params.id);
