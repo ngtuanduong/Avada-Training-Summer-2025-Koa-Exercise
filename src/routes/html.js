@@ -52,7 +52,7 @@ router.get(["/", "/products"], async (ctx) => {
 });
 
 // Render the product detail page
-router.get("/products/:id", async (ctx) => {
+router.get("/product/:id", async (ctx) => {
     const id = Number(ctx.params.id);
     // Read all products from the JSON file
     const products = JSON.parse(

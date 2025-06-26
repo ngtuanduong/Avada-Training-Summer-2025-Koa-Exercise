@@ -10008,5 +10008,25 @@
     "color": "blue",
     "image": "https://picsum.photos/seed/e5ow62Do4/400/400?grayscale&blur=3",
     "createdAt": "2025-06-24T12:58:40.074Z"
+  },
+  {
+    "id": 1003,
+    "name": "Cat",
+    "price": "23",
+    "description": "23",
+    "product": "cat",
+    "color": "White",
+    "image": "https://media.tenor.com/DFfCL02_DCcAAAAM/cat-look.gif",
+    "createdAt": "2025-06-26T15:36:47.573Z"
+  },
+  {
+    "id": 1004,
+    "name": "Nguyen Tuan Duong",
+    "price": "123",
+    "description": "123",
+    "product": "123",
+    "color": "123",
+    "image": "https://media.tenor.com/DFfCL02_DCcAAAAM/cat-look.gif",
+    "createdAt": "2025-06-26T15:38:09.465Z"
   }
 ]
